@@ -11,7 +11,7 @@
 > newtype P t x = P {runP :: [t] -> Maybe ([t], x, [t])}
 
 > instance Monad (P t) where
->   return x = P $ \ ts -> Just ([], x, ts)
+>   return = pure
 >   P s >>= f = P $ \ts -> do
 >     (sts, s', ts) <- s ts
 >     (tts, t', ts) <- runP (f s') ts
@@ -26,7 +26,7 @@
 >   fmap = ap . return
 
 > instance Applicative (P t) where
->   pure = return
+>   pure x = P $ \ ts -> Just ([], x, ts)
 >   (<*>) = ap
 
 > instance Alternative (P t) where
