@@ -5,3 +5,6 @@ leibniz: Parsley.lhs HaLay.lhs Block.hs Overlay.hs Tm.hs Main.hs ANSIEscapes.hs
 
 lab: leibniz
 	./leibniz TreeSort.hs
+
+demo: leibniz
+	./leibniz Poly.hs

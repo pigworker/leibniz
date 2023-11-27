@@ -12,6 +12,11 @@ data Poly
   |  Below Poly
   deriving Show
 
+choose :: Nat -> Nat -> Nat
+choose  Z       m  = S Z                           -- [g]
+choose (S n)  Z    = Z                             -- [h]
+choose (S n) (S m) = choose (S n) m + choose n m   -- [i]
+
 eval :: Poly -> Nat -> Nat
 eval X         x     = x                           -- [x]
 eval (N n)     x     = n                           -- [n]
@@ -22,20 +27,28 @@ eval (Below p) Z     = Z                           -- [z]
 eval (Below p) (S n) = eval (Below p) n + eval p n -- [s]
 
 diff :: Poly -> Poly
-diff X         = N (S Z)                         -- [a]
-diff (N n)     = Z                               -- [b]
-diff (P p q)   = P (diff p) (diff q)             -- [c]
-diff (T p q)   = P (T (diff p) q) (T p (Up q))   -- [d]
-diff (Up p)    = Up (diff p)                     -- [e]
-diff (Below p) = p                               -- [f]
-
-ex1 :: Poly
-ex1 = diff (T X (Up X))
+diff X         = N (S Z)                           -- [a]
+diff (N n)     = Z                                 -- [b]
+diff (P p q)   = P (diff p) (diff q)               -- [c]
+diff (T p q)   = P (T (diff p) q) (T p (Up q))     -- [d]
+diff (Up p)    = Up (diff p)                       -- [e]
+diff (Below p) = p                                 -- [f]
 
 {-
 ex0 :: Nat
-ex0 = eval (Below (P X (N 1))) 5
+ex0 = choose Z Z
+
+ex1 :: Nat
+ex1 = choose 2 5
 -}
+ex2 :: Nat
+ex2 = eval X 7
+
+ex3 :: Nat
+ex3 = eval (Up (T X X)) 6
+
+
+
 
 instance Show Nat where
   show = show . intify where

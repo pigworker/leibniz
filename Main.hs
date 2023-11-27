@@ -165,7 +165,7 @@ handleKey (CharKey '+') (p, (c, (F "+" :$ x :$ y)), i, es)
   | Just a <- natty x
   , Just b <- natty y
   = Just (LotsChanged, (p, (c, C (show (a + b))), i, es))
-handleKey (CharKey '*') (p, (c, (F "+" :$ x :$ y)), i, es)
+handleKey (CharKey '*') (p, (c, (F "*" :$ x :$ y)), i, es)
   | Just a <- natty x
   , Just b <- natty y
   = Just (LotsChanged, (p, (c, C (show (a * b))), i, es))
