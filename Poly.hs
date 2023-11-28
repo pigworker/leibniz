@@ -28,7 +28,7 @@ eval (Below p) (S n) = eval (Below p) n + eval p n    -- [s]
 
 diff :: Poly -> Poly
 diff X         = N (S Z)                              -- [a]
-diff (N n)     = Z                                    -- [b]
+diff (N n)     = N Z                                  -- [b]
 diff (P p q)   = P (diff p) (diff q)                  -- [c]
 diff (T p q)   = P (T p (diff q)) (T (diff p) (Up q)) -- [d]
 diff (Up p)    = Up (diff p)                          -- [e]
